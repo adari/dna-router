@@ -5,9 +5,21 @@
 <script type="text/javascript">
 	var DNA = {
 		ready: false,
-		go: function(next, params, resolve) {
-			if(DNA.ready) utility.go(next, params, resolve);
-			else setTimeout(function(){ DNA.go(next,params,resolve) }.bind(this), 100);
+		go: function(goto, params) {
+			if(DNA.ready) {
+				var state = utility.getState(goto);
+				var hash = state.route;
+				if(params !== undefined && typeof params != 'object')
+					params = JSON.parse(params);
+				for(attr in params){
+					hash = hash.replace(':'+attr, params[attr]);
+				}
+
+				if(hash.indexOf(':') >= 0) {
+					console.error('Missing parameters in DNA.go()');
+				} else document.location.href = '#'+hash;
+			}
+			else setTimeout(function(){ DNA.go(goto,params) }.bind(this), 100);
 		}
 	}
 	String.prototype.toCamelCase = function() {
