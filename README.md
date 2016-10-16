@@ -123,6 +123,10 @@ Import all element:
 	```
 	In above example, many view is visible for states `abc, xyz and home`. For any other state none of its content is visible. `"This Example"` is not visible for some state, i.e `login`.
 
+6. Go to state programmatically
+
+	You can use `DNA.go(state, params);` in your elements.
+
 # Executing a function on page load
 `dna-router` provides a `DNA` object.
 ```js

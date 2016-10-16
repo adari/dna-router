@@ -5,6 +5,10 @@
 <script type="text/javascript">
 	var DNA = {
 		ready: false,
+		go: function(next, params, resolve) {
+			if(DNA.ready) utility.go(next, params, resolve);
+			else setTimeout(function(){ DNA.go(next,params,resolve) }.bind(this), 100);
+		}
 	}
 	String.prototype.toCamelCase = function() {
 	    return this.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset) {
@@ -19,7 +23,7 @@
 
 !function (){
 	window.addEventListener('WebComponentsReady', function() {
-		DNA.ready =true;
+		DNA.ready = true;
 		if(DNA.run){
 			DNA.run()
 		}
